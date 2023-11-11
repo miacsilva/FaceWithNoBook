@@ -1,2 +1,0 @@
-# FaceWithNoBook
-Facebook Copycat
