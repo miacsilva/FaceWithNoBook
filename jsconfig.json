@@ -1,0 +1,6 @@
+{
+    "compilerOptions": {
+        "baseUrl": "src"   //src directory, this compiler makes it convenient to write paths when importing
+    },
+        "include": ["src"]   
+     }
