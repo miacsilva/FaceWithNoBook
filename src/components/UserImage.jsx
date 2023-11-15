@@ -1,5 +1,6 @@
 import PropTypes from "prop-types"; //From MUI's library. For Prop validation
 import { Box } from "@mui/material";
+import getEndpoint from "/utilities"
 
 const UserImage = ({ image, size = "60px" }) => {
   const defaultImage = "default-picture.jpg";
@@ -11,7 +12,7 @@ const UserImage = ({ image, size = "60px" }) => {
         width={size}
         height={size}
         alt="user"
-        src={`http://localhost:3001/assets/${image}`|| defaultImage} // Use user's image if available, otherwise use default
+        src={`${getEndpoint()}/assets/${image}`|| defaultImage} // Use user's image if available, otherwise use default
       />
     </Box>
   );

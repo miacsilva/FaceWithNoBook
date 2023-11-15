@@ -6,6 +6,8 @@ import { setFriends } from "/src/state";
 import FlexBetween from "./FlexBetween";
 import UserImage from "/src/components/UserImage";
 import PropTypes from "prop-types";
+import getEndpoint from "/utilities"
+
 
 const Friend = ({ friendId, name, subtitle, userPicturePath }) => {
   const dispatch = useDispatch();
@@ -24,7 +26,7 @@ const Friend = ({ friendId, name, subtitle, userPicturePath }) => {
 
   const patchFriend = async () => {
     const response = await fetch(
-      `http://localhost:3001/users/${_id}/${friendId}`,
+      `${getEndpoint()}/users/${_id}/${friendId}`,
       {
         method: "PATCH",
         headers: {
