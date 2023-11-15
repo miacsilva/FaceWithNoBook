@@ -25,6 +25,7 @@ import {
   import { useDispatch, useSelector } from "react-redux";
   import { setPosts } from "/src/state";
   import PropTypes from "prop-types";
+  import getEndpoint from "/utilities"
 
   
   const MyPostWidget = ({ picturePath }) => {
@@ -48,7 +49,7 @@ import {
         formData.append("picturePath", image.name);
       }
   
-      const response = await fetch(`http://localhost:3001/posts`, {
+      const response = await fetch(`${getEndpoint()}/posts`, {
         method: "POST",
         headers: { Authorization: `Bearer ${token}` },
         body: formData,

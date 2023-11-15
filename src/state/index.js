@@ -8,7 +8,7 @@ const initialState = {
     user:null,
     token:null,
     posts: [],
-} //this data will be stored in localstate, if the user closes the browser the info will still be stored, they can dismiss it deleting the chache
+} //this data will be stored in localstate, if the user closes the browser the info will still be stored
 
 export const authSlice = createSlice({
     name: "auth",

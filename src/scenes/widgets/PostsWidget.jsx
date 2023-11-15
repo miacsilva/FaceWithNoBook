@@ -4,6 +4,7 @@ import { setPosts } from "/src/state";
 import PostWidget from "./PostWidget";
 import PropTypes from "prop-types";
 import { useCallback } from "react";
+import getEndpoint from "/utilities";
 
 const PostsWidget = ({ userId, isProfile = false }) => {
   const dispatch = useDispatch();
@@ -13,7 +14,7 @@ const PostsWidget = ({ userId, isProfile = false }) => {
   const getPosts = useCallback(async () => {
     try{
 
-    const response = await fetch("http://localhost:3001/posts", {
+    const response = await fetch(`${getEndpoint()}/posts`, {
       method: "GET",
       headers: { Authorization: `Bearer ${token}` },
     });
@@ -34,7 +35,7 @@ const PostsWidget = ({ userId, isProfile = false }) => {
 
   const getUserPosts = useCallback(async () => {
     const response = await fetch(
-      `http://localhost:3001/posts/${userId}/posts`,
+      `${getEndpoint()}/posts/${userId}/posts`,
       {
         method: "GET",
         headers: { Authorization: `Bearer ${token}` },
