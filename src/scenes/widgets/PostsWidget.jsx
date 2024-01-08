@@ -56,38 +56,29 @@ const PostsWidget = ({ userId, isProfile = false }) => {
   return (
     <>
 
-    {posts.length > 0 && (
-      <>
-      {posts.map(
-        ({
-          _id,
-          userId,
-          firstName,
-          lastName,
-          description,
-          location,
-          picturePath,
-          userPicturePath,
-          likes,
-          comments,
-        }) => (
-          <PostWidget
-            key={_id}
-            postId={_id}
-            postUserId={userId}
-            name={`${firstName} ${lastName}`}
-            description={description}
-            location={location}
-            picturePath={picturePath}
-            userPicturePath={userPicturePath}
-            likes={likes}
-            comments={comments}
-          />
-        )
-      )}
-      </>
+{posts.length > 0 && (
+  <>
+    {posts.map((post) => (
+      post && post._id ? (
+        <PostWidget
+          key={post._id}
+          postId={post._id}
+          postUserId={post.userId}
+          name={`${post.firstName} ${post.lastName}`}
+          description={post.description}
+          location={post.location}
+          picturePath={post.picturePath}
+          userPicturePath={post.userPicturePath}
+          likes={post.likes}
+          comments={post.comments}
+        />
+      ) : null
+    ))}
+  </>
+)}
 
-    )}
+
+
     </>
   );
 };

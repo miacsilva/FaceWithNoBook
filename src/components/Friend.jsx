@@ -25,6 +25,11 @@ const Friend = ({ friendId, name, subtitle, userPicturePath }) => {
   const isFriend = Array.isArray(friends) && friends.find((friend) => friend._id === friendId);
 
   const patchFriend = async () => {
+
+   /*  if (friendId === _id) {
+      return;
+    } */
+
     const response = await fetch(
       `${getEndpoint()}/users/${_id}/${friendId}`,
       {

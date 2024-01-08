@@ -37,16 +37,31 @@ import {
     const primary = palette.primary.main;
   
     const patchLike = async () => {
-      const response = await fetch(`${getEndpoint()}/posts/${postId}/like`, {
-        method: "PATCH",
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ userId: loggedInUserId }),
-      });
-      const updatedPost = await response.json();
-      dispatch(setPost({ post: updatedPost }));
+      try {
+        const response = await fetch(`${getEndpoint()}/posts/${postId}/like`, {
+          method: "PATCH",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ userId: loggedInUserId }),
+        });
+    
+        console.log("Like Response Status:", response.status);
+    
+        if (!response.ok) {
+          const errorMessage = await response.text();
+          console.error("Like Error:", errorMessage);
+          return;
+        }
+    
+        const updatedPost = await response.json();
+        console.log("Updated Post:", updatedPost);
+    
+        dispatch(setPost({ post: updatedPost }));
+      } catch (error) {
+        console.error("Like Error:", error.message);
+      }
     };
   
     return (
