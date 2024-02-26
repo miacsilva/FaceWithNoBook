@@ -15,7 +15,7 @@ import { useDispatch } from "react-redux";
 import { setLogin } from "/src/state";
 import Dropzone from "react-dropzone";
 import FlexBetween from "/src/components/FlexBetween";
-import getEndpoint from "/utilities"
+import getEndpoint from "/utilities";
 
 const registerSchema = yup.object().shape({
   firstName: yup.string().required("required"),
@@ -49,6 +49,7 @@ const initialValuesLogin = {
 
 const Form = () => {
   const [pageType, setPageType] = useState("login");
+  const [errorMessage, setErrorMessage] = useState("");
   const { palette } = useTheme();
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -64,13 +65,10 @@ const Form = () => {
     }
     formData.append("picturePath", values.picture.name);
 
-    const savedUserResponse = await fetch(
-      `${getEndpoint()}/auth/register`,
-      {
-        method: "POST",
-        body: formData,
-      }
-    );
+    const savedUserResponse = await fetch(`${getEndpoint()}/auth/register`, {
+      method: "POST",
+      body: formData,
+    });
     const savedUser = await savedUserResponse.json();
     onSubmitProps.resetForm();
 
@@ -87,7 +85,7 @@ const Form = () => {
     });
     const loggedIn = await loggedInResponse.json();
     onSubmitProps.resetForm();
-    if (loggedIn) {
+    if (loggedInResponse.ok) {
       dispatch(
         setLogin({
           user: loggedIn.user,
@@ -95,6 +93,8 @@ const Form = () => {
         })
       );
       navigate("/home");
+    } else {
+      setErrorMessage(loggedIn.msg);
     }
   };
 
@@ -128,6 +128,7 @@ const Form = () => {
               "& > div": { gridColumn: isNonMobile ? undefined : "span 4" },
             }}
           >
+            {errorMessage && <span>{errorMessage}</span>}
             {isRegister && (
               <>
                 <TextField
